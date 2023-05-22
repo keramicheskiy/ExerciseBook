@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/LogInFragment"
+    >
+
+    <fragment
+        android:id="@+id/LogInFragment"
+        android:name="com.example.exercisebook.LogInFragment"
+        android:label="log_in_fragment"
+        tools:layout="@layout/log_in_fragment" >
+
+        <action
+            android:id="@+id/action_LogInFragment_to_StepOneSignUpFragment"
+            app:destination="@id/StepOneSignUpFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/StepOneSignUpFragment"
+        android:name="com.example.exercisebook.StepOneSignUpFragment"
+        android:label="step_one_sign_up_fragment"
+        tools:layout="@layout/step_one_sign_up_fragment" >
+
+        <action
+            android:id="@+id/action_StepOneSignUpFragment_to_LogInFragment"
+            app:destination="@id/LogInFragment" />
+        <action
+            android:id="@+id/action_StepOneSignUpFragment_to_StepTwoSignUpFragment"
+            app:destination="@id/StepTwoSignUpFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/StepTwoSignUpFragment"
+        android:name="com.example.exercisebook.StepTwoSignUpFragment"
+        android:label="step_two_sign_up_fragment"
+        tools:layout="@layout/step_two_sign_up_fragment" >
+
+        <argument android:name="userDetails"
+            android:defaultValue="None"
+            app:argType="string"/>
+
+        <action
+            android:id="@+id/action_StepTwoSignUpFragment_to_StepOneSignUpFragment"
+            app:destination="@id/StepOneSignUpFragment" />
+    </fragment>
+
+
+
+</navigation>

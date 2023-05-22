@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "782120286454",
+    "project_id": "exercise-book-2bc39",
+    "storage_bucket": "exercise-book-2bc39.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:782120286454:android:a8f277a9a7f1769c0094d7",
+        "android_client_info": {
+          "package_name": "com.example.exercisebook"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "782120286454-u3hg41u1rv7s9m2qser9s6hhvpm1cchf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUp9PpcOeOQ26xfMhw0_z1Htt795Gnktc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "782120286454-u3hg41u1rv7s9m2qser9s6hhvpm1cchf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

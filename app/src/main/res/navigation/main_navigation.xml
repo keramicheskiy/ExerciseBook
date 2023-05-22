@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/addingWorkoutFragment">
+
+    <fragment
+        android:id="@+id/addingWorkoutFragment"
+        android:name="com.example.exercisebook.AddingWorkoutFragment"
+        android:label="adding_workout_fragment"
+        tools:layout="@layout/adding_workout_fragment" />
+</navigation>
