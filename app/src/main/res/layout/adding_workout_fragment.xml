@@ -103,7 +103,7 @@
         <TextView
             android:id="@+id/date"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:paddingStart="5dp"
             android:gravity="start|center_vertical"
             android:text="01.09.1939"
