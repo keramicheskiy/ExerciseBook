@@ -31,63 +31,69 @@ class ListOfExercisesAdapter (
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val model = list[position] // Название упражнения
+        val nameOfExercise = list[position] // Название упражнения
 
-        holder.binding.nameOfExercise.text = model
-        holder.binding.numberOfExercise.text = (list.indexOf(model) + 1).toString()
+        holder.binding.nameOfExercise.text = nameOfExercise
+        holder.binding.numberOfExercise.text = (list.indexOf(nameOfExercise) + 1).toString()
 
-        onStartShowListOfAttemptsAdapter(holder, model)
+        onStartShowListOfAttemptsAdapter(holder, nameOfExercise)
 
         holder.binding.removeItem.setOnClickListener {
-            removeExercise(model, position)
+            removeExercise(nameOfExercise, position)
         }
 
         holder.binding.addAttempt.setOnClickListener {
-            addAttempt(holder, model)
+            val weight = holder.binding.enterWeight.text.toString().trim{it<=' '}
+            val tries = holder.binding.enterTries.text.toString().trim{it<=' '}
+
+            if (isFilledCorrectly(weight, tries)) {
+                addAttempt(holder, nameOfExercise)
+            }
         }
-
-
     }
-
-
-
-
 
     override fun getItemCount(): Int {
         return list.size
     }
 
-    fun addAttempt(holder: ViewHolder, model: String) {
+
+
+    private fun isFilledCorrectly(weight: String, tries: String): Boolean {
+        return !weight.isBlank() && !tries.isBlank()
+    }
+
+    private fun addAttempt(holder: ViewHolder, nameOfExercise: String) {
+        var listOfAttempts = mutableListOf<AttemptDataClass>()
 
         val attempt = AttemptDataClass(
             holder.binding.enterWeight.text.toString().toInt(),
             holder.binding.enterTries.text.toString().toInt(),
         )
 
-        if (fragment.mMapOfExercisesWithAttempts[model] != null) {
-            listOfAttempts = fragment.mMapOfExercisesWithAttempts[model]!!
+        if (fragment.mMapOfExercisesWithAttempts[nameOfExercise] != null) {
+            listOfAttempts = fragment.mMapOfExercisesWithAttempts[nameOfExercise]!!
             listOfAttempts.add(attempt)
         }
-        fragment.mMapOfExercisesWithAttempts.put(model, listOfAttempts)
+        fragment.mMapOfExercisesWithAttempts.put(nameOfExercise, listOfAttempts)
 
-        val adapter = ListOfAttemptsAdapter(context, listOfAttempts, model, fragment)
+        val adapter = ListOfAttemptsAdapter(context, listOfAttempts, nameOfExercise, fragment)
         holder.binding.rvListOfAttempts.layoutManager = GridLayoutManager(context, 1)
         holder.binding.rvListOfAttempts.setHasFixedSize(false)
         holder.binding.rvListOfAttempts.adapter = adapter
     }
 
-    fun removeExercise(model: String, position: Int) {
-        fragment.mListOfExercises.remove(model)
-        fragment.mMapOfExercisesWithAttempts.remove(model)
+    private fun removeExercise(nameOfExercise: String, position: Int) {
+        fragment.mListOfExercises.remove(nameOfExercise)
+        fragment.mMapOfExercisesWithAttempts.remove(nameOfExercise)
         notifyItemRemoved(position)
         notifyItemRangeChanged(position, list.size)
     }
 
-    fun onStartShowListOfAttemptsAdapter(holder: ViewHolder, model: String) {
-        if (fragment.mMapOfExercisesWithAttempts[model] != null) {
-            adapter = ListOfAttemptsAdapter(context, fragment.mMapOfExercisesWithAttempts[model]!!, model, fragment)
+    private fun onStartShowListOfAttemptsAdapter(holder: ViewHolder, nameOfExercise: String) {
+        if (fragment.mMapOfExercisesWithAttempts[nameOfExercise] != null) {
+            adapter = ListOfAttemptsAdapter(context, fragment.mMapOfExercisesWithAttempts[nameOfExercise]!!, nameOfExercise, fragment)
         } else {
-            adapter = ListOfAttemptsAdapter(context, listOfAttempts, model, fragment)
+            adapter = ListOfAttemptsAdapter(context, listOfAttempts, nameOfExercise, fragment)
         }
         holder.binding.rvListOfAttempts.layoutManager = GridLayoutManager(context, 1)
         holder.binding.rvListOfAttempts.setHasFixedSize(false)

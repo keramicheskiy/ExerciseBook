@@ -61,7 +61,8 @@ class AddingWorkoutFragment
         }
 
         binding.done.setOnClickListener {
-            binding.date.text = mListOfExercises.toString()
+            binding.uExercises.text = mListOfExercises.toString()
+            binding.u2.text = mMapOfExercisesWithAttempts.toString()
         }
 
         binding.addExercise.setOnClickListener {

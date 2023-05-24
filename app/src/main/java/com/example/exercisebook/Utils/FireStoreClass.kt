@@ -110,5 +110,9 @@ class FireStoreClass {
 //
 //    }
 
+    fun addNewWorkoutToCollections() {
+
+    }
+
 
 }
