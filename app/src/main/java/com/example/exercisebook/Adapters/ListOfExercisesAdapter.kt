@@ -11,6 +11,7 @@ import com.example.exercisebook.AddingWorkoutFragment
 import com.example.exercisebook.DataClasses.AttemptDataClass
 import com.example.exercisebook.R
 import com.example.exercisebook.ListOfExerciseChange
+import com.example.exercisebook.Utils.Utils
 import com.example.exercisebook.Utils.crutch
 import com.example.exercisebook.databinding.ExerciseItemBinding
 
@@ -46,8 +47,11 @@ class ListOfExercisesAdapter (
             val weight = holder.binding.enterWeight.text.toString().trim{it<=' '}
             val tries = holder.binding.enterTries.text.toString().trim{it<=' '}
 
-            if (isFilledCorrectly(weight, tries)) {
+            if (isFilledCorrectly(weight, tries))
                 addAttempt(holder, nameOfExercise)
+            else {
+                holder.binding.enterWeight.text.clear()
+                holder.binding.enterTries.text.clear()
             }
         }
     }
@@ -59,14 +63,14 @@ class ListOfExercisesAdapter (
 
 
     private fun isFilledCorrectly(weight: String, tries: String): Boolean {
-        return !weight.isBlank() && !tries.isBlank()
+        return Utils().checkIsFloat(weight) && Utils().checkIsInt(tries)
     }
 
     private fun addAttempt(holder: ViewHolder, nameOfExercise: String) {
         var listOfAttempts = mutableListOf<AttemptDataClass>()
 
         val attempt = AttemptDataClass(
-            holder.binding.enterWeight.text.toString().toInt(),
+            holder.binding.enterWeight.text.toString().toFloat(),
             holder.binding.enterTries.text.toString().toInt(),
         )
 

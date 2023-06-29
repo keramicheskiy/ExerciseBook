@@ -12,6 +12,7 @@ import androidx.navigation.Navigation
 import com.example.exercisebook.DataClasses.User
 import com.example.exercisebook.Utils.Constants
 import com.example.exercisebook.Utils.FireStoreClass
+import com.example.exercisebook.Utils.UserBuilder
 import com.example.exercisebook.databinding.StepTwoSignUpFragmentBinding
 import com.google.firebase.auth.FirebaseAuth
 
@@ -68,15 +69,20 @@ class StepTwoSignUpFragment : Fragment() {
             val firstName = binding.enterFirstName.text.toString().trim{it<=' '}
             val lastName = binding.enterLastName.text.toString().trim{it<=' '}
             val isCouch = binding.isCouchCheckBox.isChecked
+            val name = "$firstName $lastName"
 
-            val user = User(
-                "",
-                login!!,
-                number,
-                firstName,
-                lastName,
-                isCouch,
-            )
+//            val user = User(
+//                login = login!!,
+//                number = number,
+//                name = name,
+//                isCouch = isCouch,
+//            )
+//
+            val user = UserBuilder()
+                .setLogin(login!!)
+                .setNumber(number)
+                .setName(name)
+                .setIsCouch(isCouch)
 
             FireStoreClass().registerUser(this@StepTwoSignUpFragment, user, password!!)
 

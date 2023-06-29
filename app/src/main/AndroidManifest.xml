@@ -26,7 +26,13 @@
 <!--        <activity android:name=".Fragments.StepOneSignUpFragment"/>-->
 <!--        <activity android:name=".Fragments.StepTwoSignUpFragment"/>-->
 <!--        <activity android:name=".LogInFragment"/>-->
-        <activity android:name=".MainActivity"/>
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/NoActionBar"
+            android:exported="false">
+        </activity>
+
 
 
     </application>

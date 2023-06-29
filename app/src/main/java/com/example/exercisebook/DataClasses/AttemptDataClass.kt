@@ -5,7 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class AttemptDataClass(
-    val weight: Int = 0,
+    val weight: Float = 0f,
     val tries: Int = 0
 
 ) : Parcelable

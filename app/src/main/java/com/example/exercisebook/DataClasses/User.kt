@@ -8,8 +8,7 @@ data class User(
     val id: String = "",
     val login: String = "",
     val number: String = "",
-    val firstName: String = "",
-    val lastName: String = "",
+    val name: String = "",
     val isCouch: Boolean = false,
     
 ) : Parcelable

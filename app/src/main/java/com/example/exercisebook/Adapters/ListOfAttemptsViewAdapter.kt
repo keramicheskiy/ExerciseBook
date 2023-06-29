@@ -8,23 +8,22 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.exercisebook.AddingWorkoutFragment
 import com.example.exercisebook.DataClasses.AttemptDataClass
 import com.example.exercisebook.R
-import com.example.exercisebook.Utils.crutch
+import com.example.exercisebook.WorkoutFragment
 import com.example.exercisebook.databinding.AttemptItemBinding
-import com.example.exercisebook.databinding.ExerciseItemBinding
 
-class ListOfAttemptsAdapter (
+class ListOfAttemptsViewAdapter(
     private val context: Context,
     private val list: MutableList<AttemptDataClass>,
     private val nameOfExercise: String,
-    private val fragment: AddingWorkoutFragment
-        ) : RecyclerView.Adapter<ListOfAttemptsAdapter.ViewHolder>(), View.OnClickListener {
+    private val fragment: WorkoutFragment
+) : RecyclerView.Adapter<ListOfAttemptsViewAdapter.ViewHolder>() {
     class ViewHolder (val binding : AttemptItemBinding) : RecyclerView.ViewHolder(binding.root)
 
     var listOfAttempts = mutableListOf<AttemptDataClass>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.attempt_item, parent, false)
-        return ListOfAttemptsAdapter.ViewHolder(AttemptItemBinding.bind(view))
+        return ViewHolder(AttemptItemBinding.bind(view))
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -41,31 +40,11 @@ class ListOfAttemptsAdapter (
         }
 
 
-        holder.binding.removeItem.setOnClickListener {
-            removeAttempt(model, position)
-        }
-
     }
 
     override fun getItemCount(): Int {
         return list.size
     }
 
-    fun removeAttempt(model: AttemptDataClass, position: Int) {
-
-        if (fragment.mMapOfExercisesWithAttempts[nameOfExercise] != null) {
-            listOfAttempts = fragment.mMapOfExercisesWithAttempts[nameOfExercise]!!
-            listOfAttempts.remove(model)
-        }
-        fragment.mMapOfExercisesWithAttempts.put(nameOfExercise, listOfAttempts)
-        notifyItemRemoved(position)
-        notifyItemRangeChanged(position, list.size)
-
-    }
-
-    override fun onClick(v: View?) {
-        TODO("Not yet implemented")
-    }
 
 }
-

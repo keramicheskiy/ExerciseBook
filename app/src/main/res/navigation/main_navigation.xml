@@ -3,11 +3,47 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_navigation"
-    app:startDestination="@id/addingWorkoutFragment">
+    app:startDestination="@id/searchingForWorkoutFragment">
 
     <fragment
         android:id="@+id/addingWorkoutFragment"
         android:name="com.example.exercisebook.AddingWorkoutFragment"
         android:label="adding_workout_fragment"
-        tools:layout="@layout/adding_workout_fragment" />
+        tools:layout="@layout/adding_workout_fragment" >
+
+        <action
+            android:id="@+id/action_addingWorkoutFragment_to_searchingForWorkoutFragment"
+            app:destination="@id/searchingForWorkoutFragment" />
+
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/searchingForWorkoutFragment"
+        android:name="com.example.exercisebook.SearchingForWorkoutFragment"
+        android:label="SearchingForWorkoutFragment" >
+        <action
+            android:id="@+id/action_searchingForWorkoutFragment_to_addingWorkoutFragment"
+            app:destination="@id/addingWorkoutFragment" />
+        <action
+            android:id="@+id/action_searchingForWorkoutFragment_to_workoutFragment"
+            app:destination="@id/workoutFragment" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/workoutFragment"
+        android:name="com.example.exercisebook.WorkoutFragment"
+        android:label="WorkoutFragment">
+
+        <argument android:name="date"
+        android:defaultValue="None"
+        app:argType="string"/>
+
+        <action
+            android:id="@+id/action_workoutFragment_to_searchingForWorkoutFragment"
+            app:destination="@id/searchingForWorkoutFragment" />
+
+    </fragment>
+
 </navigation>

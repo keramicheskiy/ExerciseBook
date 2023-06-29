@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/real_grey"
+    >
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/real_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Главная"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            android:gravity="center"
+            android:paddingEnd="15dp"
+            />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <TextView
+        android:id="@+id/text1"
+        android:text="Добавление "
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/text_black"
+        android:textSize="20dp"
+        />
+
+    <LinearLayout
+        android:id="@+id/ll_addingWorkout"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text1"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:background="@drawable/white_block"
+        android:padding="10dp"
+        android:gravity="center"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Новая тренировка"
+            android:textSize="18dp"
+            android:gravity="center_vertical"
+            android:textColor="@color/text_black"
+            android:layout_weight="1"
+            />
+
+        <ImageButton
+            android:id="@+id/btnAddNewWorkout"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:background="@drawable/add_vector_asset"
+            android:layout_gravity="end"
+            />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/text2"
+        android:text="Поиск"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ll_addingWorkout"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/text_black"
+        android:textSize="20dp"
+        />
+
+    <LinearLayout
+        android:id="@+id/search_block"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text2"
+        android:orientation="horizontal"
+        android:background="@drawable/white_block"
+        android:layout_margin="10dp"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
+        >
+
+        <EditText
+            android:id="@+id/enterFirstName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="10dp"
+            android:paddingStart="5dp"
+            android:hint="Имя"
+            />
+
+        <EditText
+            android:id="@+id/enterLastName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingStart="5dp"
+            android:layout_marginEnd="10dp"
+            android:hint="Фамилия"
+            />
+
+        <ImageView
+            android:id="@+id/btnChooseDate"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:background="@drawable/calendar_vector_asset"
+            android:backgroundTint="@color/black" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/search_field"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="8dp"
+            android:layout_gravity="center"
+            >
+
+            <ImageButton
+                android:id="@+id/btnSearch"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:background="@drawable/search_vector_asset"
+                android:backgroundTint="@color/black"
+                />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvListOfWorkouts"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/search_block"
+        android:layout_margin="10dp"
+        />
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

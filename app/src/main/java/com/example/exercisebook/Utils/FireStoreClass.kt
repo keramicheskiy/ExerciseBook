@@ -2,9 +2,10 @@ package com.example.exercisebook.Utils
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import com.example.exercisebook.*
+import com.example.exercisebook.DataClasses.AttemptDataClass
 import com.example.exercisebook.DataClasses.User
-import com.example.exercisebook.StepOneSignUpFragment
-import com.example.exercisebook.StepTwoSignUpFragment
+import com.example.exercisebook.DataClasses.Workout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
@@ -15,13 +16,14 @@ class FireStoreClass {
     val mFireStore = FirebaseFirestore.getInstance()
     val Auth = FirebaseAuth.getInstance()
 
-    fun createUserInCollections(fragment: Fragment, user: User) {
+    fun createUserInCollections(fragment: Fragment, user: UserBuilder) {
+        val userInstance = user.build()
         mFireStore.collection(Constants.USERS)
             .document()
-            .set(user, SetOptions.merge())
+            .set(userInstance, SetOptions.merge())
             .addOnSuccessListener {
                 when(fragment) {
-                    is StepTwoSignUpFragment -> fragment.registrationSuccess(user)
+                    is StepTwoSignUpFragment -> fragment.registrationSuccess(userInstance)
                 }
             }.addOnFailureListener {
                 when(fragment) {
@@ -30,22 +32,15 @@ class FireStoreClass {
             }
     }
 
-    fun registerUserInAuth(fragment: Fragment, user: User, password: String) {
+    fun registerUserInAuth(fragment: Fragment, user: UserBuilder, password: String) {
 
         Auth.createUserWithEmailAndPassword(user.login!!, password!!)
             .addOnCompleteListener {
             if (it.isSuccessful) {
                 val firebaseUser = it.result!!.user!!
                 val userId = firebaseUser.uid
+                user.setId(userId)
 
-                val user = User(
-                    userId,
-                    user.login!!,
-                    user.number,
-                    user.firstName,
-                    user.lastName,
-                    user.isCouch,
-                )
                 createUserInCollections(fragment, user)
             }
         }
@@ -68,9 +63,10 @@ class FireStoreClass {
             }
     }
 
-    fun registerUser(fragment: Fragment, user: User, password: String) {
+    fun registerUser(fragment: Fragment, user: UserBuilder, password: String) {
+        val userInstance = user.build()
         mFireStore.collection(Constants.USERS)
-            .whereEqualTo("number", user.number)
+            .whereEqualTo("number", userInstance.number)
             .get()
             .addOnSuccessListener {
                 if (it.isEmpty) {
@@ -105,13 +101,58 @@ class FireStoreClass {
         return currentUserId
     }
 
-//    fun signInWithEmailAndPassword(login: String, password: String) {
-//        Auth.signInWithEmailAndPassword()
-//
-//    }
+    fun postWorkoutInCollections(fragment: Fragment, workout: Workout) {
+        mFireStore.collection(Constants.WORKOUT)
+            .document()
+            .set(workout, SetOptions.merge())
+            .addOnSuccessListener {
+                when(fragment) {
+                    is AddingWorkoutFragment -> fragment.workoutPostingSuccess()
+                }
+            }.addOnFailureListener {
 
-    fun addNewWorkoutToCollections() {
+            }
+    }
 
+    fun findAndShowAllWorkouts(fragment: Fragment, name: String, date: String) {
+        mFireStore.collection(Constants.USERS)
+            .whereEqualTo(Constants.NAME, name)
+            .get()
+            .addOnSuccessListener {
+                var list = mutableListOf<User>()
+
+                for (i in it.documents) {
+                    val snapshot = i.toObject(User::class.java)
+                    list.add(snapshot!!)
+                }
+
+                when(fragment) {
+                    is SearchingForWorkoutFragment -> fragment.createListOfUsersAdapter(list)
+                }
+
+            }
+    }
+
+    fun fillTheAdapterWithExercises(fragment: Fragment, email: String, date: String) {
+        mFireStore.collection(Constants.WORKOUT)
+            .whereEqualTo(Constants.LOGIN, email)
+            .whereEqualTo(Constants.DATE, date)
+            .get()
+            .addOnSuccessListener {
+                if (!it.isEmpty) {
+                    when(fragment) {
+                        is WorkoutFragment -> fragment.createAttemptViewAdapter(it.toObjects(Workout::class.java))
+                    }
+                } else {
+                    when(fragment) {
+                        is WorkoutFragment -> fragment.destroy()
+                    }
+                }
+            }.addOnFailureListener {
+                when(fragment) {
+                    is WorkoutFragment -> fragment.destroy()
+                }
+            }
     }
 
 
